@@ -13,12 +13,12 @@ function decodeQR(matrix: BitMatrix) : string {
 }
 
 // return bytes.reduce((p, b) => p + String.fromCharCode(b), "");
+// 解决中文问题
 function byteArrayToString(bytes: number[]): string {
   var str = "";
+  var result:string[] = [];
   if(bytes != null && bytes != undefined) {
-    for (var i = 0; i < bytes.length; i++) {
-      str += String.fromCharCode(bytes[i]);
-    }
+    str = decodeURIComponent(bytes.map(function(v){return v.toString(16);}).join('').replace(/(.{2})/g, '%$1'));
   }
   return str;
 }
